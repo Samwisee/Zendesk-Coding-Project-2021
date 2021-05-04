@@ -7,7 +7,7 @@ export default async function fetchTicketData() {
     header.append("Accept", "application/json");
 
     // Encode credentials  using base64
-    let encoded = window.btoa("samcheneyus@gmail.com:something1");
+    let encoded = window.btoa("");
 
     // Append basic encoded credentials to HTTP header
     let auth = "Basic " + encoded;

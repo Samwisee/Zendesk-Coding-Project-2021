@@ -12,15 +12,14 @@
   <body>
     <h1>Samdesk Ticketing</h1>
       <table>
-        <thead>
-          <tr>Subject</tr>
-          <tr>Priority</tr>
-        </thead>
         <tbody id="table-body">
+          <tr>
+            <th>Subject</th>
+            <th>Priority</th>
+          </tr>
         </tbody>
       </table>
       
-      <div id="ticketingWindow"></div>
       <div id="pagination">
         <a href="">Prev</a>
         <a href="">1</a>
@@ -30,7 +29,7 @@
       </div>
     <script>
 
-      const array = [
+      const ticketsArray = [
   {
     url: "https://samcheney.zendesk.com/api/v2/tickets/1.json",
     id: 1,
@@ -301,18 +300,16 @@
 
       // TODO change back to 25
       const paginationState = {
-        ticketArray: array,
+        ticketArray: ticketsArray,
         pages: 1,
         rows: 5,
       }
-
 
       function pagination (ticketArray, page, rows) {
         let startPoint = (page - 1) * rows
         let endPoint = startPoint + rows
 
         let ticketPage = ticketArray.slice(startPoint, endPoint)
-
         let pages = Math.ceil(ticketArray.length / rows)
 
         return {
@@ -320,27 +317,7 @@
           pages: pages
         }
       }
-
-      let data = pagination(paginationState.ticketArray, paginationState.page, paginationState.rows)
-      console.log('Data', data)
-
-      function buildTable () {
-        const table = document.getElementById('table-body')
-
-        array.forEach((index) => {
-          let row = document.createElement('tr')
-          let td1 = row.appendChild(document.createElement('td'))
-          let text1 = td1.appendChild(document.createTextNode(`${index.subject}`))
-          let td2 = row.appendChild(document.createElement('td'))
-          let text2 = td2.appendChild(document.createTextNode(`${index.priority}`))
-          
-          table.append(row)
-        })
-        pageButtons(data.pages)
-      }
-
-      buildTable()
-
+      
       function pageButtons(pages) {
         const wrapper = document.getElementById('pagination')
         wrapper.innerHTML = ''
@@ -349,26 +326,28 @@
           wrapper.innerHTML += `<button value=${index}>${index}</button>`
         }
       }
+      
+      function buildTable () {
+        const table = document.getElementById('table-body')
 
-    
-      const buildUL = (array) => {
-        let list = document.createElement('ul')
-        array.forEach((index) => {
+        let data = pagination(paginationState.ticketArray, paginationState.pages, paginationState.rows)
+        console.log(data)
 
-          // Build the List elements for the User Interface based on JSON list
-          let ticket = document.createElement('li')
-          let ticketLink = ticket.appendChild(document.createElement('a'))
-          ticketLink.setAttribute('href', index.url)
-
-          ticketLink.appendChild(document.createTextNode(`${index.subject} - Priority: ${index.priority}`))
-
-          list.appendChild(ticket)
-
-        })
-
-        return list
+        let index = 1
+        
+        for(index of data.ticketArray) {
+          let row = document.createElement('tr')
+          let td1 = row.appendChild(document.createElement('td'))
+          let td2 = row.appendChild(document.createElement('td'))
+          let text1 = td1.appendChild(document.createTextNode(`${index.subject}`))
+          let text2 = td2.appendChild(document.createTextNode(`${index.priority}`))
+          
+          table.append(row)
+        }
+        pageButtons(data.pages)
       }
-      document.getElementById('ticketingWindow').appendChild(buildUL(array))
+
+      buildTable()
 
     </script>
   </body>
