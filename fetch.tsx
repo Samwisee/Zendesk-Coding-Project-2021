@@ -24,6 +24,7 @@ export default async function fetchTicketData () {
     const response = await fetch(request)
     const tickets = await response.json()
     const ticketsArray = tickets.ticket_fields
+    console.log(ticketsArray)
     return ticketsArray
   
   } catch (error) {
@@ -31,3 +32,5 @@ export default async function fetchTicketData () {
   }
 
 }
+
+fetchTicketData()
