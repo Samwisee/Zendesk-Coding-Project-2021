@@ -16,3 +16,11 @@ First thing is to install deno.
 `brew install deno`
 
 Follow this [link](https://deno.land/) if you don't have homebrew.
+
+## Running the Program
+
+`deno run --allow-net fetch.ts`
+
+Deno is secure by default so you will need to include permission tags to
+
+## Design of system
