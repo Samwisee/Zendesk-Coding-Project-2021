@@ -6,27 +6,18 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Samdesk</title>
   </head>
   <body>
     <h1>Samdesk Ticketing</h1>
       <table>
         <tbody id="table-body">
-          <tr>
-            <th>Subject</th>
-            <th>Priority</th>
-          </tr>
         </tbody>
       </table>
       
-      <div id="pagination">
-        <a href="">Prev</a>
-        <a href="">1</a>
-        <a href="">2</a>
-        <a href="">3</a>
-        <a href="">Next</a>
-      </div>
+      <div id="pagination"></div>
+      <script async="async" type="text/javascript" src="main.js"></script>
     <script>
 
       const ticketsArray = [
@@ -301,14 +292,16 @@
       // TODO change back to 25
       const paginationState = {
         ticketArray: ticketsArray,
-        pages: 1,
+        page: 1,
         rows: 5,
       }
 
-      function pagination (ticketArray, page, rows) {
+      function setPagination (ticketArray, page, rows) {
+        // Set page start and end messages
         let startPoint = (page - 1) * rows
         let endPoint = startPoint + rows
 
+        // Divide messages into pages
         let ticketPage = ticketArray.slice(startPoint, endPoint)
         let pages = Math.ceil(ticketArray.length / rows)
 
@@ -318,35 +311,58 @@
         }
       }
       
-      function pageButtons(pages) {
+      // Build pagination buttons
+      function buildPageButtons(pages) {
         const wrapper = document.getElementById('pagination')
         wrapper.innerHTML = ''
 
         for (let index = 1; index <= pages; index ++) {
-          wrapper.innerHTML += `<button value=${index}>${index}</button>`
+          wrapper.innerHTML += `<button
+                                  value=${index} 
+                                  onClick="handlePageClick(this.value)" 
+                                  class="pageButton">
+                                  ${index}
+                                </button>`
         }
+
       }
       
+      function handlePageClick (val) {
+        document.getElementById('table-body').innerHTML = ''
+        paginationState.page = val
+        buildTable()
+      }
+
+      // Sets up table on page load and kicks everything
       function buildTable () {
         const table = document.getElementById('table-body')
 
-        let data = pagination(paginationState.ticketArray, paginationState.pages, paginationState.rows)
-        console.log(data)
+        let paginationData = setPagination(paginationState.ticketArray, paginationState.page, paginationState.rows)
 
-        let index = 1
-        
-        for(index of data.ticketArray) {
+        let ticketIndex = 0
+
+        // Build ticket buttons
+        for(ticketIndex of paginationData.ticketArray) {
           let row = document.createElement('tr')
-          let td1 = row.appendChild(document.createElement('td'))
-          let td2 = row.appendChild(document.createElement('td'))
-          let text1 = td1.appendChild(document.createTextNode(`${index.subject}`))
-          let text2 = td2.appendChild(document.createTextNode(`${index.priority}`))
+          row.innerHTML = `<button
+                            value=${ticketIndex} 
+                            onClick="handleLinkClick(this.value)" 
+                            class="pageButton"
+                            href="">
+                              ${ticketIndex.subject}
+                              ${ticketIndex.priority}
+                          </button>`
           
           table.append(row)
         }
-        pageButtons(data.pages)
+        buildPageButtons(paginationData.pages)
       }
-
+      
+      function handleLinkClick (ticketDetails) {
+        window.location = ticketDetails.url
+        console.log(ticketDetails)
+      }
+      
       buildTable()
 
     </script>
