@@ -1,0 +1,25 @@
+{
+  "name": "zendesk-coding-project",
+  "version": "1.0.0",
+  "description": "Zendesk coding challenge",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samwisee/Zendesk-Coding-Project-2021.git"
+  },
+  "author": "Sam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Samwisee/Zendesk-Coding-Project-2021/issues"
+  },
+  "homepage": "https://github.com/Samwisee/Zendesk-Coding-Project-2021#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}

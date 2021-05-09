@@ -1,4 +1,6 @@
-export default async function fetchTicketData() {
+import { config } from "https://deno.land/x/dotenv/mod.ts";
+
+export default async function fetchTicketDataFromZendesk() {
   try {
     const zendeskAPIurl = "https://samcheney.zendesk.com/api/v2/tickets.json";
 
@@ -6,11 +8,12 @@ export default async function fetchTicketData() {
     let header = new Headers()
     header.append("Accept", "application/json")
 
-    // Encode credentials  using base64
-    let encoded: string = window.btoa("samcheneyus@gmail.com:something1");
+    // Encode credentials using base64
+    const env = config()
+    let encoded = window.btoa(`${env.USER}:${env.PASSWORD}`);
 
     // Append encoded credentials to HTTP header
-    let auth: string = "Basic " + encoded
+    let auth = "Basic " + encoded
     header.append("Authorization", auth)
 
     // Set up an HTTP request

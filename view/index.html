@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Samdesk</title>
+    <script async="async" type="text/javascript" src="UI.js"></script>
+    <script async="async" type="text/javascript" src="fetch.js"></script>
   </head>
   <body>
     <h1>Samdesk Ticketing</h1>
@@ -17,7 +19,23 @@
       </table>
       
       <div id="pagination"></div>
-      <script async="async" type="text/javascript" src="main.js"></script>
+      <script>
+        const ticketData = fetchTicketData()
+        buildTable(ticketData)
+
+        function handleLinkClick (ticketDetails) {
+          window.location = ticketDetails.url
+          console.log(ticketDetails)
+        }
+        
+        function handlePageClick (index) {
+          document.getElementById('table-body').innerHTML = ''
+          paginationState.page = index
+          buildTable()
+        }
+        
+
+      </script>
     <script>
 
       const ticketsArray = [
@@ -327,9 +345,9 @@
 
       }
       
-      function handlePageClick (val) {
+      function handlePageClick (index) {
         document.getElementById('table-body').innerHTML = ''
-        paginationState.page = val
+        paginationState.page = index
         buildTable()
       }
 
