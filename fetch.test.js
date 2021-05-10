@@ -1,4 +1,4 @@
-import sum from "./fetch.tsx";
+import sum from "./server/fetch.js";
 import { assertEquals } from "https://deno.land/std/testing/asserts.ts";
 
 Deno.test("Testing the testing framework", () => {

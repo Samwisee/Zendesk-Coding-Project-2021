@@ -1,5 +1,5 @@
-import fetchTicketData from './fetch.tsx'
-import startServer from './server.tsx'
+import fetchTicketData from './server/fetch.js'
+import startServer from './server/server.js'
 
 const ticketsArray = await fetchTicketData()
 

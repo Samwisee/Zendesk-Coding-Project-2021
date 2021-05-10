@@ -2,7 +2,8 @@
   "name": "zendesk-coding-project",
   "version": "1.0.0",
   "description": "Zendesk coding challenge",
-  "main": "app.js",
+  "main": "server/app.js",
+  "type": "module",
   "scripts": {
     "test": "jest"
   },
@@ -17,7 +18,11 @@
   },
   "homepage": "https://github.com/Samwisee/Zendesk-Coding-Project-2021#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "btoa": "^1.2.1",
+    "dotenv": "^9.0.1",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "jest": "^26.6.3"
