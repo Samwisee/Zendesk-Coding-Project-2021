@@ -7,19 +7,22 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script type="text/javascript" src="UI.js"></script>
+    <script type="text/javascript" src="data.js"></script>
     <title>Samdesk</title>
   </head>
   <body>
     <h1>Welcome to Samdesk Ticketing</h1>
-    <table>
-      <tbody id="table-body">
-      </tbody>
-    </table>
-    <div id="pagination"></div>
-    
-    <a href="/tickets">Get tickets</a>
-    <script async="async" type="text/javascript" src="UI.js"></script>
-    <script async="async" type="text/javascript" src="data.js"></script>
+    <div id="table"></div>
+        
+    <script>
+      
+      (async function() {
+        const tickets = await fetchTicketData()
+        const ticketTable = new TicketTable(tickets, 'table')
+        ticketTable.render()
+      })();
 
+    </script>
   </body>
 </html>

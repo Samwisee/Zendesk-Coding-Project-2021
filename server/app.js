@@ -1,27 +1,17 @@
 import express from 'express'
 import fetchTicketData from './fetch.js'
+import dotenv from 'dotenv'
+
+dotenv.config() // Set up environmental variables
 
 const app = express()
 const port = process.env.PORT || 3000
 
-// Set up templating engine
-app.set('view engine', 'ejs')
+app.use(express.static('view'))
 
-app.get('/', (req, res) => {
-  res.render('../view/index')
-})
-
-app.get('/tickets', async (req, res) => {
+app.get('/api/tickets', async (req, res) => {
   const tickets = await fetchTicketData()
-  console.log(tickets)
-  res.render('../view/tickets', { tickets: tickets })
-})
-
-app.get('/tickets/:id', (req, res) => {
-  console.log(app.get('data'))
-  res.render('../view/ticket', { id: req.params.id,
-    tickets: res.locals.tickets
-  })
+  res.send({ tickets })
 })
 
 app.use((req, res) => {
