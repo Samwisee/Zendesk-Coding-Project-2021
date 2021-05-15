@@ -1,29 +1,37 @@
-// TODO dotenv
-import { XMLHttpRequest } from 'xmlhttprequest'
-import dotenv from 'dotenv'
-import btoa from 'btoa'
+import axios from 'axios'
+
+import dotenv from 'dotenv' // Set up environmental variables
+import btoa from 'btoa' // Base64 encoder
 
 dotenv.config()
 
 export default async function fetchTicketData() {
-  const url = "https://samcheney.zendesk.com/api/v2/tickets.json"
+  
+  const url = `https://${process.env.SUBDOMAIN}.zendesk.com/api/v2/tickets.json`
 
-  const xhr = new XMLHttpRequest()
-  xhr.open("GET", url)
-
-  let encoded = btoa(`${process.env.EMAIL}:${process.env.PASSWORD}`)
-
-  xhr.setRequestHeader("Authorization", `Basic ${encoded}`)
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-        console.log(xhr.status);
-        console.log(xhr.responseText);
-    }}
-
-  xhr.send();
+  const data = await callAPI(url)
+  console.log(data)
 
 }
 
+const callAPI = async (url) => {
 
-console.log(fetchTicketData())
+  const response = await axios.get(url, {
+    auth: {
+      username: process.env.EMAIL,
+      password: process.env.PASSWORD
+    }
+  })
+
+  let { data } = response
+  let tickets = data.tickets
+
+  if (data.next_page != null) {
+    const nextTickets = await callAPI(data.next_page)
+    tickets = [...tickets, ...nextTickets]
+  }
+  return tickets
+
+}
+
+// TODO error handle API not available, look into retries

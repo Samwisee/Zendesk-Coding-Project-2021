@@ -5,7 +5,8 @@
   "main": "server/app.js",
   "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "nodemon ./server/app.js"
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,14 @@
   },
   "homepage": "https://github.com/Samwisee/Zendesk-Coding-Project-2021#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "btoa": "^1.2.1",
     "dotenv": "^9.0.1",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "node-cache": "^5.1.2",
     "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {

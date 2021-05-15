@@ -2,26 +2,30 @@ import express from 'express'
 import fetchTicketData from './fetch.js'
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
-app.use(express.static('view'))
+// Set up templating engine
+app.set('view engine', 'ejs')
 
-app.get('/tickets', async (req, res, next) => {
-  try{
-    const ticketData = await fetchTicketData()
-    console.log(ticketData)
-    result.send(ticketsArray)
-  } catch {
-    console.log('Routing error')
-  }
+app.get('/', (req, res) => {
+  res.render('../view/index')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+app.get('/tickets', async (req, res) => {
+  const tickets = await fetchTicketData()
+  console.log(tickets)
+  res.render('../view/tickets', { tickets: tickets })
 })
 
-function expressStatic (req, res, next) {
-  
-  next()
-}
+app.get('/tickets/:id', (req, res) => {
+  console.log(app.get('data'))
+  res.render('../view/ticket', { id: req.params.id,
+    tickets: res.locals.tickets
+  })
+})
 
+app.use((req, res) => {
+  res.send('This page does not exist')
+})
+
+app.listen(port, () => console.info(`Listening http://localhost:${port}`))
