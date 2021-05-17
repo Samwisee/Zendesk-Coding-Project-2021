@@ -12,11 +12,17 @@
     <title>Samdesk</title>
   </head>
   <body>
-    <h1>Welcome to Samdesk Ticketing</h1>
-    <div id="table"></div>
-        
+    <main>
+      <header>
+        <h1>Welcome to Samdesk Ticketing</h1>
+      </header>
+      <div class="main-container">
+        <div id="loader"></div>
+        <div id="table"></div>
+      </div>
+    </main>
     <script>
-      
+      // Glue code between backend and frontend code
       (async function() {
         const tickets = await fetchTicketData()
         const ticketTable = new TicketTable(tickets, 'table')

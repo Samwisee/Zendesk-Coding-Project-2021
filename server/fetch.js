@@ -19,7 +19,6 @@ const callAPI = async (url, auth) => {
   const response = await axios.get(url, { auth })
 
   let { data } = response
-  console.log(response)
   let tickets = data.tickets
 
   if (data.next_page != null) {

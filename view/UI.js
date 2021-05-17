@@ -12,24 +12,41 @@ class TicketTable {
     container.innerHTML = '' 
     container.append(table)
     let ticketPage = this.tickets.slice((this.page - 1) * this.rows, this.rows * this.page)
-    console.log(ticketPage)
-    ticketPage.forEach(this.renderRow)
     this.renderPagination()
-  }
+    ticketPage.forEach(this.renderRow.bind(this))
+    const buttons = document.getElementsByClassName('active')
 
+  }
+  
   renderRow(ticket) {
-    let row = document.createElement('tr')
-    const button = document.createElement('button')
+    let button = document.createElement('button')
     button.innerText = ticket.subject
-    button.className = 'active'
-    button.onclick = () => this.renderTicketView
+    button.className += 'active'
+    button.className += ' ticketButton' 
+    
+    button.addEventListener('click', (e) => {
+      this.renderTicketView(ticket)
+    })
+
+    let row = document.createElement('tr')
+
     row.append(button)
     table.append(row)
   }
 
-  renderTicketView() {
-    const buttons = document.getElementsByClassName('active')
-    buttons.className = 'hidden'
+  renderTicketView(ticket) {
+    document.getElementById('table').innerHTML = ''
+    let backButton = document.createElement('button')
+    backButton.innerText = 'back'
+    backButton.setAttribute('id', 'backButton')
+    backButton.onclick = () => this.render()
+
+    let text = document.createElement('p')
+    text.innerText = ticket.description
+    
+    const container = document.getElementById(this.container)
+    container.append(backButton)
+    container.append(text)
   }
 
   renderPagination() {
@@ -41,67 +58,21 @@ class TicketTable {
     let ticketPage = this.tickets.slice(startPoint, endPoint)
     let count = Math.ceil(this.tickets.length / this.rows)
 
-    console.log('hi')
+    // Hide pre-loader on render
+    document.getElementById('loader').style.display = 'none'
 
     for (let index = 1; index <= count; index ++) {
       const button = document.createElement('button')
-      button.onclick = () => this.handlePageClick(index, this.tickets)
+      button.onclick = () => this.handlePaginationClick(index, this.tickets)
       button.setAttribute('class', 'pageButton')
       button.innerText = index
       table.append(button)
     }  
   }
 
-  handlePageClick = (index, tickets) => {
+  handlePaginationClick = (index, tickets) => {
     document.getElementById('table').innerHTML = ''
     this.page = index
     this.render(tickets)
   }
 }
-
-// const setPagination = (tickets, page, rows) => {
-//   // Set page start and end messages
-//   let startPoint = (page - 1) * rows
-//   let endPoint = startPoint + rows
-
-//   // Divide messages into pages
-//   let ticketPage = tickets.slice(startPoint, endPoint)
-//   let count = Math.ceil(tickets.length / rows)
-
-//   return {
-//     tickets: ticketPage,
-//     count: count
-//   }
-// }
-
-// // Build pagination buttons
-// const buildPageButtons = (count, tickets) => {
-//   const wrapper = document.getElementById('pagination')
-//   wrapper.innerHTML = ''
-
-//   for (let index = 1; index <= count; index ++) {
-//     const button = document.createElement('button')
-//     button.onclick = ()=>handlePageClick(index, tickets)
-//     button.setAttribute('class', 'pageButton')
-//     button.innerText = index
-//     wrapper.append(button)
-//   }   
-// }
-
-// const handleLinkClick = (ticketDetails) => {
-//   window.location = ticketDetails.url
-// }
-
-// // Sets up table on page load and kicks everything
-// const buildTable = (tickets) => {
-//   const table = document.getElementById('table-body')
-
-//   let paginationData = setPagination(tickets, paginationState.page, paginationState.rows)
-
-//   let ticketIndex = 0
-
-
-//   console.log(tickets)
-//   buildPageButtons(paginationData.count)
-// }
-
