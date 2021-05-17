@@ -2,10 +2,8 @@ class TicketTable {
   constructor(tickets, containerID) {
     this.tickets = tickets
     this.container = containerID 
-    this.paginationState = {
-      page: 1,
-      rows: 25,
-    }
+    this.page = 1
+    this.rows = 25  
   }
 
   render() {
@@ -13,33 +11,52 @@ class TicketTable {
     const container = document.getElementById(this.container)
     container.innerHTML = '' 
     container.append(table)
-    this.tickets.forEach(this.renderRow)
-    this.tickets.forEach(this.renderPagination)
+    let ticketPage = this.tickets.slice((this.page - 1) * this.rows, this.rows * this.page)
+    console.log(ticketPage)
+    ticketPage.forEach(this.renderRow)
+    this.renderPagination()
   }
 
   renderRow(ticket) {
     let row = document.createElement('tr')
     const button = document.createElement('button')
     button.innerText = ticket.subject
+    button.className = 'active'
+    button.onclick = () => this.renderTicketView
     row.append(button)
     table.append(row)
   }
 
+  renderTicketView() {
+    const buttons = document.getElementsByClassName('active')
+    buttons.className = 'hidden'
+  }
+
   renderPagination() {
+    // Set page start and end messages
     let startPoint = (this.page - 1) * this.rows
     let endPoint = startPoint + this.rows
-    let ticketPage = tickets.slice(startPoint, endPoint)
-    let count = Math.ceil(tickets.length / this.rows)
+
+    // Divide messages into pages
+    let ticketPage = this.tickets.slice(startPoint, endPoint)
+    let count = Math.ceil(this.tickets.length / this.rows)
+
+    console.log('hi')
 
     for (let index = 1; index <= count; index ++) {
       const button = document.createElement('button')
-      button.onclick = ()=>handlePageClick(index, this.tickets)
+      button.onclick = () => this.handlePageClick(index, this.tickets)
       button.setAttribute('class', 'pageButton')
       button.innerText = index
-      container.append(button)
+      table.append(button)
     }  
   }
 
+  handlePageClick = (index, tickets) => {
+    document.getElementById('table').innerHTML = ''
+    this.page = index
+    this.render(tickets)
+  }
 }
 
 // const setPagination = (tickets, page, rows) => {
@@ -83,26 +100,8 @@ class TicketTable {
 
 //   let ticketIndex = 0
 
-//   // Build ticket buttons
-//   for(ticketIndex of paginationData.tickets) {
-//     let row = document.createElement('tr')
-//     row.innerHTML = `<button
-//                       value=${ticketIndex} 
-//                       onClick="handleLinkClick(this.value)" 
-//                       class="ticketButton"
-//                       href="/tickets">
-//                         ${ticketIndex.subject}
-//                     </button>`
-    
-//     table.append(row)
-//   }
 
 //   console.log(tickets)
 //   buildPageButtons(paginationData.count)
 // }
 
-// const handlePageClick = (index, tickets) => {
-//   document.getElementById('table-body').innerHTML = ''
-//   paginationState.page = index
-//   buildTable(tickets)
-// }

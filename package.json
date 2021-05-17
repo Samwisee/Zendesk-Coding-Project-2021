@@ -5,7 +5,7 @@
   "main": "server/app.js",
   "type": "module",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "start": "nodemon ./server/app.js"
   },
   "repository": {
@@ -30,6 +30,11 @@
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "moxios": "^0.4.0"
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-node",
+    "transform": {}
   }
 }
