@@ -1,6 +1,5 @@
-// import sum from "./server/fetch.js";
 import moxios from 'moxios'
-import fetchTicketData from './server/fetch'
+import fetchTicketData from './src/server/fetch'
 
 const zendeskResponse = {
   "tickets": [{
@@ -15,11 +14,6 @@ const zendeskResponse = {
     ]
   }]
 }
-
-test('two plus two is four', () => {
-  // basic test to show that tests are working
-  expect(2 + 2).toBe(4);
-});
 
 // Setting up moxios
 describe('fetch', () => {
