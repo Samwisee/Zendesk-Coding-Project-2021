@@ -40,16 +40,16 @@ describe("fetch Zendesk API data", () => {
   });
 
   it("returns tickets on successful API call", async () => {
-    // arrange
+    // Arrange request for moxios
     moxios.stubRequest(/.*/, {
       status: 200,
       responseText: JSON.stringify(zendeskResponsePage1),
     });
 
-    // act
+    // act to call fetch.js
     const actualTickets = await fetchTicketData();
 
-    // assert
+    // assert that tickets returns properly
     await expect(actualTickets).toEqual(zendeskResponsePage1.tickets);
   });
 
@@ -83,7 +83,7 @@ describe("fetch Zendesk API data", () => {
     // arrange
     moxios.stubRequest(/.*/, {
       status: 500,
-      responseText: "Something bad happened",
+      responseText: "Something bad happened on the server",
     });
 
     // act

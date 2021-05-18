@@ -2,12 +2,14 @@ import axios from "axios";
 
 // TODO error handle API not available, look into retries for errors
 export default async function fetchTicketData() {
+  // Set up environmental variables
   const url = `https://${process.env.SUBDOMAIN}.zendesk.com/api/v2/tickets.json`;
   const auth = {
     username: process.env.EMAIL,
     password: process.env.PASSWORD,
   };
 
+  // Attempt to call Zendesk API and handle error
   try {
     const data = await callAPI(url, auth);
     return data;
@@ -16,6 +18,7 @@ export default async function fetchTicketData() {
   }
 }
 
+// Call API and handle pagination if necessary
 const callAPI = async (url, auth) => {
   const response = await axios.get(url, { auth });
 

@@ -20,7 +20,7 @@ const tickets = [
 ];
 
 test("TicketTable renders", async (done) => {
-  // Arrange
+  // Arrange to set up JSDOM
   const options = {
     resources: "usable",
     runScripts: "dangerously",
@@ -28,7 +28,7 @@ test("TicketTable renders", async (done) => {
 
   return JSDOM.fromFile(`src/view/test.html`, options).then((dom) => {
     dom.window.onload = () => {
-      // Act
+      // Act to build buttons
       dom.window.eval(` 
         const tickets = ${JSON.stringify(tickets)};
         const ticketTable = new TicketTable(tickets, "table");
