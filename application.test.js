@@ -65,16 +65,3 @@ describe('fetch', () => {
   })
   
 })
-
-test('', () =>{
-  
-})
-
-// Integration tests
-test('API response matches the data at the ', () =>{
-  // expect(tickets)
-})
-
-test('', () =>{
-  
-})

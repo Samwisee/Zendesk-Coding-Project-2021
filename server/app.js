@@ -15,7 +15,8 @@ app.get('/api/tickets', async (req, res) => {
 })
 
 app.use((req, res) => {
-  res.send('This page does not exist')
+  res.set('Content-Type', 'text/html');
+  res.send(Buffer.from("<p>404 this page does not exist</p><a href='/'>Go Back</a>"));
 })
 
 app.listen(port, () => console.info(`Listening http://localhost:${port}`))

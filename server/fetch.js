@@ -2,6 +2,7 @@ import axios from 'axios'
 import dotenv from 'dotenv' // Set up environmental variables
 import btoa from 'btoa' // Base64 encoder
 
+// TODO error handle API not available, look into retries for errors
 export default async function fetchTicketData() {
 
   const url = `https://${process.env.SUBDOMAIN}.zendesk.com/api/v2/tickets.json`
@@ -28,4 +29,3 @@ const callAPI = async (url, auth) => {
   return tickets
 }
 
-// TODO error handle API not available, look into retries for errors
