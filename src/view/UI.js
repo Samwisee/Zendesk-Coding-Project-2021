@@ -30,7 +30,33 @@ class TicketTable {
     let button = document.createElement("button");
     let tag = document.createElement("div");
     button.innerText += ticket.subject;
-    button.innerHTML += `<div>${ticket.tags[0].charAt(0)}</div>`;
+
+    let newtag;
+
+    if (ticket.tags.length > 0) {
+      tag = ticket.tags[0].charAt(0);
+      newtag = `<div class='tag tag-${tag}'>${tag}</div>`;
+    } else {
+      newtag = "";
+    }
+
+    //   case "s":
+    //     newtag = `<div style="border: 1px solid red">${tag}</div>`;
+    //   case "e":
+    //     newtag = `<div style="border: 1px solid yellow">${tag}</div>`;
+    //   case "i":
+    //     newtag = `<div style="border: 1px solid blue">${tag}</div>`;
+    //   case "n":
+    //     newtag = `<div style="border: 1px solid black">${tag}</div>`;
+    //   case "c":
+    //     newtag = `<div style="border: 1px solid green">${tag}</div>`;
+    //   case "d":
+    //     newtag = `<div style="border: 1px solid pink">${tag}</div>`;
+    //   case "d":
+    //     newtag = `<div style="border: 1px solid purple">${tag}</div>`;
+    // }
+
+    button.innerHTML += newtag;
     button.className += "ticketButton";
 
     // Connect message buttons to

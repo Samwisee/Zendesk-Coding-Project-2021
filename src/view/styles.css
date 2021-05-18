@@ -13,7 +13,7 @@ header {
 }
 
 button div {
-  border: 1px solid gray;
+  border: 0;
   border-radius: 50%;
   width: 20px;
   text-align: center;
@@ -70,10 +70,44 @@ button div {
   margin-bottom: -1px;
 }
 
+.tag {
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.tag-a {
+  border-color: red;
+}
+
+.tag-s {
+  border-color: yellow;
+}
+
+.tag-i {
+  border-color: blue;
+}
+
+.tag-n {
+  border-color: purple;
+}
+
+.tag-c {
+  border-color: gray;
+}
+
+.tag-d {
+  border-color: orange;
+}
+
+.tag-e {
+  border-color: green;
+}
+
 .ticketButton {
+  width: 350px;
+  flex-grow: 1;
   margin: 0;
   height: 50px;
-  width: 350px;
   background-color: #f5fcfc;
   text-align: left;
   font-size: 16px;
