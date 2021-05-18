@@ -8,7 +8,7 @@ Requirements for this project are as follows:
 - Return the tickets
 - Paginate results for more than 25 results
 - Show a list of results
-- Show the individual tickets
+- Show the individual ticket details
 - Provide happy path tests
   
 ## Quickstart
@@ -47,20 +47,41 @@ This project was intially built on [deno.js](https://deno.land/). I chose the de
 1) Web API fetching 
 2) Built in Testing
 3) Supports Typescript natively
-4) Supports level promises which will be handy for the API request
+4) Supports top level promises which would be handy for the API request
 
-Unfortunately I ran into a server issue with deno that I could not resolve, so I switched to a vanilla node application with Express routing.
+Unfortunately I ran into a server issue with deno that I could not resolve, so I switched to a vanilla node application with Express.js for routing, Axios for API interactions, and Jest.js for testing. While Typescript is an awesome feature, it was not necessary for a project of this scope. Furthermore it was easy enough to work around the top level promise issue by wrapping async functions.
 
 The simple data structure of the tickets is perfect for a single-page application (SPA), which allows the front end to render quickly and reduces the API calls to one per session.
 
-This application loosely uses the model, view, controller, router (MVCR) approach. 
+This application loosely uses the model, view, controller (MVC) approach applied to a single page application.
 
-### /server
+.
++-- /src
+|   +-- /server
+|       +-- app.js
+|       +-- fetch.js
+|   +-- /view
+|       +-- data.js
+|       +-- index.html
+|       +-- styles.css
+|       +-- UI.js
 
-- app.js acts as the Router layer and simply points to the html page.
+### src/server
+
+- app.js acts as the Router layer and a simple controller:
+
+``` 
+app.get('/api/tickets', async (req, res) => {
+  const tickets = await fetchTicketData()
+  res.send({ tickets })
+})
+```
+
+This controller functionality could easily be broken into a separate function if more methods become necessary in the future.
+
 - fetch.js file is the API call, which handles the interaction with the Zendesk API. 
 
-### /view
+### src/view
 
 - data.js acts as the glue code between the backend node js code and the frontend browser based js.
 - index.html is the static html code, which acts as the main View layer.
@@ -70,5 +91,9 @@ During development, it became clear that the controller was not yet necessary du
 
 ## Limitations
 
-This version currently does not have any data storage solution. A future version would likely include a local storage to save ticket data in browser memory to reduce load times. Furthermore the API call fetches all of the batched data in one call which would work for thousands or even tens of thousands of records. But it may run into issues with millions of records returned.
+This version currently does not have any data storage solution. A future version would likely include a local storage to save ticket data in browser memory to reduce load times. Local storage will be appropriate given there's not more than 5MB of ticket data. Beyond that, a more sophisticated cache could be implemented on the server (using something like Redis or even sqlite depending on the required scale).
+
+Furthermore the API call fetches all of the batched data in one call which would work for thousands or even tens of thousands of records. But it may run into issues with millions of records returned. The approach to how to handle this level of data will depend on how the data is expected to be used. If it is client facing, it is probably most important to return the data quickly in small batches.
+
+## Articles 
 

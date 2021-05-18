@@ -7,7 +7,7 @@ dotenv.config() // Set up environmental variables
 const app = express()
 const port = process.env.PORT || 3000
 
-app.use(express.static('view'))
+app.use(express.static('src/view'))
 
 app.get('/api/tickets', async (req, res) => {
   const tickets = await fetchTicketData()

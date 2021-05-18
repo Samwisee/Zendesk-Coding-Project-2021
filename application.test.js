@@ -47,21 +47,29 @@ describe('fetch', () => {
     expect(actualTickets).toEqual(zendeskResponse.tickets)
   })
   
-  it('aggregates all pages into a single response', () =>{
-    // TODO: figure out how to stub multiple request
-  })
-  
   it('returns error on unsuccessful API call', () =>{
     // arrange
     moxios.stubRequest(/.*/, {
       status: 500,
-      responseText: "something bad happened"
+      responseText: "Something bad happened"
     })
     
     // act
     expect(async () => {
-      const actualTickets = await fetchTicketData()
+      await fetchTicketData()
     }).toThrow()
   })
-  
+
+  it('returns error when invalid credentials are provided', () =>{
+    // arrange
+    moxios.stubRequest(/.*/, {
+      status: 401,
+      responseText: "Invalid credentials were provided"
+    })
+    
+    // act
+    expect(async () => {
+      await fetchTicketData()
+    }).toThrow()
+  })
 })
