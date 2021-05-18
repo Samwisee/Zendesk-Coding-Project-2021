@@ -16,6 +16,25 @@ To download the program use:
 
 `git clone https://github.com/Samwisee/Zendesk-Coding-Project-2021.git`
 
+This project was built using node version v14.13.0, check your node version using:
+
+`node -v`
+
+If your node version is out of date try this command:
+
+```
+brew update
+brew upgrade node
+```
+
+Or try [this article](https://www.educative.io/edpresso/how-to-update-nodejs)
+
+If node is not installed on your system try this command:
+
+`brew install node`
+
+Or follow the [nodejs documentation](https://nodejs.dev/learn/how-to-install-nodejs)
+
 After downloading the project you will need to set up the npm packages using the following command:
 
 `npm install `
