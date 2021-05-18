@@ -54,6 +54,7 @@ To run the program use:
 
 `npm start`
 
+Then click on the link provided in the terminal or paste http://localhost:3000/ in your brower's url.
 
 ## Testing
 
@@ -63,11 +64,13 @@ To run the testing suite use:
 
 This command encorporates tests for both the server and the UI.
 
-The server tests handle successful requests (including tickets across paginated requests), general 500 errors, and bad credentials (401 errors). 
+Any file with the word test in the extension is specifically made for testing purposes.
 
-The UI tests show that the browser is able to render tickets as buttons with correctly labelled subject lines.
+The fetch.test.js handles successful requests (including tickets across paginated requests), general 500 errors, and bad credentials (401 errors). 
 
-Testing is handled using [jest](https://jestjs.io/), [jsdom](https://github.com/jsdom/jsdom) for UI testing, and [moxios](https://github.com/axios/moxios) for API testing.
+The UI.test.js tests that the browser is able to render tickets as buttons with correctly labelled subject lines.
+
+This testing suite uses [jest](https://jestjs.io/), [jsdom](https://github.com/jsdom/jsdom) for UI testing, and [moxios](https://github.com/axios/moxios) for API testing.
 
 ## System Design
 
