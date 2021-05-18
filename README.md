@@ -54,7 +54,7 @@ Unfortunately I ran into a server issue with deno that I could not resolve, so I
 The simple data structure of the tickets is perfect for a single-page application (SPA), which allows the front end to render quickly and reduces the API calls to one per session.
 
 This application loosely uses the model, view, controller (MVC) approach applied to a single page application.
-
+```
 .
 +-- /src
 |   +-- /server
@@ -65,6 +65,7 @@ This application loosely uses the model, view, controller (MVC) approach applied
 |       +-- index.html
 |       +-- styles.css
 |       +-- UI.js
+```
 
 ### src/server
 
