@@ -8,13 +8,21 @@ header {
   width: 100%;
   background-color: #17494d;
   color: #fff;
-  padding: 10px;
+  padding: 10px 0;
   text-align: center;
+}
+
+button div {
+  border: 1px solid gray;
+  border-radius: 50%;
+  width: 20px;
+  text-align: center;
+  margin-left: auto;
 }
 
 #table {
   margin: auto;
-  width: 500px;
+  width: 350px;
   height: 100%;
   background-color: light-gray;
 }
@@ -47,10 +55,25 @@ header {
   }
 }
 
+.pageButton {
+  margin: 0;
+  text-align: center;
+  height: 50px;
+  width: 50px;
+  background-color: #f5fcfc;
+  text-align: left;
+  font-size: 16px;
+  padding: 3px 5px;
+  border-radius: 0;
+  border: 0;
+  border: 1px solid gray;
+  margin-bottom: -1px;
+}
+
 .ticketButton {
   margin: 0;
-  height: 30px;
-  width: 500px;
+  height: 50px;
+  width: 350px;
   background-color: #f5fcfc;
   text-align: left;
   font-size: 16px;
@@ -61,6 +84,7 @@ header {
   border-right: 1px solid gray;
   border-top: 1px solid gray;
   margin-bottom: -1px;
+  display: flex;
 }
 
 .ticketButton:last-of-type {

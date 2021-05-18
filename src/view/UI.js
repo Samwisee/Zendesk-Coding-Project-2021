@@ -28,7 +28,9 @@ class TicketTable {
   renderRow(ticket) {
     // Build message buttons
     let button = document.createElement("button");
-    button.innerText = ticket.subject;
+    let tag = document.createElement("div");
+    button.innerText += ticket.subject;
+    button.innerHTML += `<div>${ticket.tags[0].charAt(0)}</div>`;
     button.className += "ticketButton";
 
     // Connect message buttons to
