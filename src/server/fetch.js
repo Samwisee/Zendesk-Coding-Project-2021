@@ -1,31 +1,30 @@
-import axios from 'axios'
-import dotenv from 'dotenv' // Set up environmental variables
-import btoa from 'btoa' // Base64 encoder
+import axios from "axios";
 
 // TODO error handle API not available, look into retries for errors
 export default async function fetchTicketData() {
-
-  const url = `https://${process.env.SUBDOMAIN}.zendesk.com/api/v2/tickets.json`
+  const url = `https://${process.env.SUBDOMAIN}.zendesk.com/api/v2/tickets.json`;
   const auth = {
     username: process.env.EMAIL,
-    password: process.env.PASSWORD
-  }
+    password: process.env.PASSWORD,
+  };
 
-  const data = await callAPI(url, auth)
-  return data
+  try {
+    const data = await callAPI(url, auth);
+    return data;
+  } catch (err) {
+    throw new Error(`Unable to call Zendesk API: ${err.message}`);
+  }
 }
 
 const callAPI = async (url, auth) => {
+  const response = await axios.get(url, { auth });
 
-  const response = await axios.get(url, { auth })
-
-  let { data } = response
-  let tickets = data.tickets
+  let { data } = response;
+  let tickets = data.tickets;
 
   if (data.next_page != null) {
-    const nextTickets = await callAPI(data.next_page, auth)
-    tickets = [...tickets, ...nextTickets]
+    const nextTickets = await callAPI(data.next_page, auth);
+    tickets = [...tickets, ...nextTickets];
   }
-  return tickets
-}
-
+  return tickets;
+};

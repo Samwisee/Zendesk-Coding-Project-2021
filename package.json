@@ -5,7 +5,9 @@
   "main": "server/app.js",
   "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test-server": "NODE_OPTIONS=--experimental-vm-modules jest --testPathPattern=src/server --env=jest-environment-node",
+    "test-UI": "NODE_OPTIONS=--experimental-vm-modules jest --testPathPattern=src/view --env=jsdom",
+    "test": "npm run test-server && npm run test-UI",
     "start": "nodemon ./src/server/app.js"
   },
   "repository": {
@@ -31,10 +33,10 @@
   },
   "devDependencies": {
     "jest": "^26.6.3",
+    "jsdom": "^16.5.3",
     "moxios": "^0.4.0"
   },
   "jest": {
-    "testEnvironment": "jest-environment-node",
     "transform": {}
   }
 }
