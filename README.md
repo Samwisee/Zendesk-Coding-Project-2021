@@ -6,8 +6,8 @@ Requirements for this project are as follows:
 
 - Connect to the Zendesk API
 - Return the tickets, and handle API pagination over 100 results
-- Show the list of results, and Paginate results for more than 25 results
-- Show the individual ticket details
+- Show the list of results, and Paginate if more than 25 tickets are returned
+- Show the individual ticket details on click
 - Provide happy path tests
   
 ## Quickstart
@@ -27,7 +27,7 @@ brew update
 brew upgrade node
 ```
 
-Or try [this article](https://www.educative.io/edpresso/how-to-update-nodejs)
+Or follow [this article](https://www.educative.io/edpresso/how-to-update-nodejs)
 
 If node is not installed on your system try this command:
 
@@ -35,7 +35,7 @@ If node is not installed on your system try this command:
 
 Or follow the [nodejs documentation](https://nodejs.dev/learn/how-to-install-nodejs)
 
-After downloading the project you will need to set up the npm packages using the following command:
+After downloading the project you will need to install the npm packages using the following command:
 
 `npm install `
 
@@ -64,7 +64,7 @@ To run the testing suite use:
 
 This command encorporates tests for both the server and the UI.
 
-Any file with the word test in the extension is specifically made for testing purposes.
+Any file with the word test in the extension is for testing purposes.
 
 The fetch.test.js handles successful requests (including tickets across paginated requests), general 500 errors, and bad credentials (401 errors). 
 
@@ -76,7 +76,7 @@ This testing suite uses [jest](https://jestjs.io/), [jsdom](https://github.com/j
 
 This project was intially built on [deno.js](https://deno.land/) but I ran into a server issue with deno that I could not resolve, so I switched to a vanilla node application with Express.js for routing, Axios for API interactions, and Jest.js for testing. While Typescript is an awesome feature, it was not necessary for a project of this scope. Furthermore it was easy enough to work around the top level promise issue by wrapping async functions.
 
-The simple data structure of the tickets is perfect for a single-page application (SPA), which allows the front end to render quickly and reduces the API calls to one per session.
+The simple data structure of the tickets is perfect for a single-page application (SPA). A single page application allows the front end to render quickly and reduces the API calls to one per session. This approach works well for the small number of tickets requested from the server; however this approach may cause performance issues for large requests. This topic is further investigated in the "Limitations" section.
 
 This application uses the model, view, controller (MVC) approach applied to a single page application.
 ```
